@@ -1,6 +1,6 @@
 package com.tdanylchuk.recruitme.configuration
 
-import com.tdanylchuk.recruitme.model.Candidate
+import com.tdanylchuk.recruitme.repository.model.CandidateEntity
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter
@@ -9,6 +9,6 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 class RestMvcConfiguration : RepositoryRestConfigurerAdapter() {
 
     override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration?) {
-        config!!.exposeIdsFor(Candidate::class.java)
+        config!!.exposeIdsFor(CandidateEntity::class.java)
     }
 }

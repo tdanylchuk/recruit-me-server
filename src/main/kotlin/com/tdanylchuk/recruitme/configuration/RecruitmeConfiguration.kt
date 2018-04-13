@@ -1,6 +1,6 @@
 package com.tdanylchuk.recruitme.configuration;
 
-import com.tdanylchuk.recruitme.model.Candidate
+import com.tdanylchuk.recruitme.repository.model.CandidateEntity
 import com.tdanylchuk.recruitme.repository.CandidateRepository
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
@@ -15,7 +15,7 @@ class RecruitmeConfiguration {
             run {
                 listOf("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
                         "Gremlin", "Triumph", "Ford", "Yugo").forEach { name ->
-                    val candidate = Candidate(0, name, "$name@gmail.com", "developer")
+                    val candidate = CandidateEntity(0, name, "$name@gmail.com", "developer")
                     repository.save(candidate)
                 }
                 repository.findAll().forEach({ candidate -> System.out.println(candidate) })
