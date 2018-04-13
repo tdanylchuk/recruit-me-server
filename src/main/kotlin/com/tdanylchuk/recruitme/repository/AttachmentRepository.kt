@@ -1,8 +1,12 @@
 package com.tdanylchuk.recruitme.repository
 
 import com.tdanylchuk.recruitme.repository.model.AttachmentEntity
+import com.tdanylchuk.recruitme.repository.model.AttachmentProjection
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.rest.core.annotation.RepositoryRestResource
 
-@Repository
-interface AttachmentRepository : JpaRepository<AttachmentEntity, Long>
+@RepositoryRestResource(path = "attachments", excerptProjection = AttachmentProjection::class)
+interface AttachmentRepository : JpaRepository<AttachmentEntity, Long> {
+
+    fun findByIdIn(ids: List<Long>): List<AttachmentEntity>
+}

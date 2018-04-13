@@ -21,8 +21,10 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
                 path = path.toString(),
                 name = file.originalFilename ?: "",
                 uploadDate = Date.from(Instant.now()))
-        log.info("Saving attachment - {}", attachment)
-        return attachmentRepository.save(attachment).id
+
+        val savedAttachment = attachmentRepository.save(attachment)
+        log.info("Attachment[{}] has been saved.", savedAttachment)
+        return savedAttachment.id
     }
 
 }

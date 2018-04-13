@@ -1,11 +1,21 @@
 package com.tdanylchuk.recruitme.controller
 
-import com.tdanylchuk.recruitme.repository.CandidateRepository
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.RestController
+import com.tdanylchuk.recruitme.service.CandidateService
+import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.*
+import javax.websocket.server.PathParam
 
 @CrossOrigin
 @RestController
-class CandidateController(val candidateRepository: CandidateRepository) {
+@RequestMapping("candidates")
+class CandidateController(private val candidateService: CandidateService) {
+
+    private val log = LoggerFactory.getLogger(this.javaClass.name)
+
+    @PostMapping("/{candidateId}/attachments")
+    fun addAttachments(@PathVariable("candidateId") candidateId: Long, @RequestParam attachmentIds: List<Long>) {
+        log.info("Adding attachments{} to candidate[{}]...", attachmentIds, candidateId)
+        candidateService.addAttachments(candidateId, attachmentIds)
+    }
 
 }

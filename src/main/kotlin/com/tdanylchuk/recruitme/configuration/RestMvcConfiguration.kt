@@ -1,5 +1,6 @@
 package com.tdanylchuk.recruitme.configuration
 
+import com.tdanylchuk.recruitme.repository.model.AttachmentEntity
 import com.tdanylchuk.recruitme.repository.model.CandidateEntity
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration
@@ -9,6 +10,6 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 class RestMvcConfiguration : RepositoryRestConfigurerAdapter() {
 
     override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration?) {
-        config!!.exposeIdsFor(CandidateEntity::class.java)
+        config!!.exposeIdsFor(CandidateEntity::class.java, AttachmentEntity::class.java)
     }
 }
