@@ -15,7 +15,11 @@ class RecruitmeConfiguration {
             run {
                 listOf("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
                         "Gremlin", "Triumph", "Ford", "Yugo").forEach { name ->
-                    val candidate = CandidateEntity(name = name, email = "$name@gmail.com", position = "developer")
+                    val candidate = CandidateEntity(
+                            firstName = name,
+                            lastName = "last name",
+                            email = "$name@gmail.com",
+                            position = "developer")
                     repository.save(candidate)
                 }
                 repository.findAll().forEach({ candidate -> System.out.println(candidate) })

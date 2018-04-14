@@ -11,7 +11,9 @@ data class CandidateEntity(
         @Id @GeneratedValue
         val id: Long = 0,
 
-        val name: String,
+        val firstName: String,
+
+        val lastName: String,
 
         val email: String,
 
