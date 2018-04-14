@@ -3,7 +3,6 @@ package com.tdanylchuk.recruitme.controller
 import com.tdanylchuk.recruitme.service.CandidateService
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
-import javax.websocket.server.PathParam
 
 @CrossOrigin
 @RestController

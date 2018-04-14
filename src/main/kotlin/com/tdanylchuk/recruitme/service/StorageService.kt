@@ -1,11 +1,10 @@
 package com.tdanylchuk.recruitme.service
 
 import org.slf4j.LoggerFactory
-import org.springframework.core.io.Resource
-import org.springframework.core.io.UrlResource
 import org.springframework.stereotype.Service
 import org.springframework.util.FileSystemUtils
 import org.springframework.web.multipart.MultipartFile
+import java.io.File
 import java.io.IOException
 import java.net.MalformedURLException
 import java.nio.file.Files
@@ -32,19 +31,17 @@ class StorageService {
         }
     }
 
-    fun loadFile(filename: String): Resource {
+    fun loadFile(filePath: String): File {
         try {
-            val file = rootLocation.resolve(filename)
-            val resource = UrlResource(file.toUri())
-            return if (resource.exists() || resource.isReadable()) {
-                resource
+            val file = File(Paths.get(filePath).toUri())
+            return if (file.exists() || file.canRead()) {
+                file
             } else {
                 throw RuntimeException("FAIL!")
             }
         } catch (e: MalformedURLException) {
             throw RuntimeException("FAIL!", e)
         }
-
     }
 
     fun deleteAll() {

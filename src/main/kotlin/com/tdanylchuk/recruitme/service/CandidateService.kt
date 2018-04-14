@@ -5,9 +5,10 @@ import com.tdanylchuk.recruitme.repository.AttachmentRepository
 import com.tdanylchuk.recruitme.repository.CandidateRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.util.*
+import javax.transaction.Transactional
 
 @Service
+@Transactional
 class CandidateService(private val candidateRepository: CandidateRepository,
                        private val attachmentRepository: AttachmentRepository) {
 
@@ -16,9 +17,13 @@ class CandidateService(private val candidateRepository: CandidateRepository,
     fun addAttachments(candidateId: Long, attachmentIds: List<Long>) {
         val candidate = candidateRepository.getOne(candidateId)
         val attachments = attachmentRepository.findByIdIn(attachmentIds)
-        val list = ArrayList(attachments)
-        list.addAll(candidate.attachments)
-        candidate.attachments = list
+
+        if (attachments.size != attachmentIds.size) {
+            throw RuntimeException("Not all attachments$attachmentIds has been found. " +
+                    "Found : ${attachments.map { it.id }}")
+        }
+
+        candidate.attachments.addAll(attachments)
         candidateRepository.save(candidate)
         log.info("Attachments{} has been assigned to candidate[{}].", attachmentIds, candidateId)
     }
