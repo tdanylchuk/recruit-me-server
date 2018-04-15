@@ -2,9 +2,7 @@ package com.tdanylchuk.recruitme.repository.model
 
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class AttachmentEntity(
@@ -15,5 +13,9 @@ data class AttachmentEntity(
 
         val name: String,
 
-        @UpdateTimestamp
-        val uploadDate: Date)
+        @field:UpdateTimestamp
+        val uploadDate: Date? = null) {
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    var candidate: CandidateEntity? = null
+}

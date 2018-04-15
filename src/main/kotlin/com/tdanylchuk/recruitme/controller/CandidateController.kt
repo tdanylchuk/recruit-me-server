@@ -12,7 +12,7 @@ class CandidateController(private val candidateService: CandidateService) {
     private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     @PostMapping("/{candidateId}/attachments")
-    fun addAttachments(@PathVariable("candidateId") candidateId: Long, @RequestParam attachmentIds: List<Long>) {
+    fun addAttachments(@PathVariable("candidateId") candidateId: Long, @RequestBody attachmentIds: List<Long>) {
         log.info("Adding attachments{} to candidate[{}]...", attachmentIds, candidateId)
         candidateService.addAttachments(candidateId, attachmentIds)
     }

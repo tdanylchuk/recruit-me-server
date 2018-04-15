@@ -6,10 +6,14 @@ import org.springframework.core.io.FileSystemResource
 import org.springframework.core.io.Resource
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RequestMethod.*
 import org.springframework.web.multipart.MultipartFile
 import javax.servlet.http.HttpServletResponse
 
-@CrossOrigin(allowedHeaders = ["*"], exposedHeaders = ["Content-Length", "Content-Disposition"])
+@CrossOrigin(
+        allowedHeaders = ["*"],
+        exposedHeaders = ["Content-Length", "Content-Disposition"],
+        methods = [GET, DELETE, POST])
 @RestController
 @RequestMapping("attachments")
 class AttachmentController(private val attachmentService: AttachmentService) {
@@ -32,6 +36,12 @@ class AttachmentController(private val attachmentService: AttachmentService) {
         response.setHeader("Content-Disposition", "attachment; filename=" + details.originalFileName)
         response.setHeader("Content-Length", details.fileSize.toString())
         return FileSystemResource(details.file)
+    }
+
+    @DeleteMapping("/{attachmentId}")
+    fun delete(@PathVariable("attachmentId") attachmentId: Long) {
+        log.info("Deleting attachment[{}]...", attachmentId)
+        attachmentService.delete(attachmentId)
     }
 
 }

@@ -27,20 +27,28 @@ class StorageService {
             log.info("Saved file[{}] to path[{}].", file.originalFilename, path)
             return path
         } catch (e: Exception) {
-            throw RuntimeException("Failed to store file! " + file.originalFilename, e)
+            throw RuntimeException("Failed to store file! ${file.originalFilename}", e)
         }
     }
 
-    fun loadFile(filePath: String): File {
+    fun load(filePath: String): File {
         try {
             val file = File(Paths.get(filePath).toUri())
             return if (file.exists() || file.canRead()) {
                 file
             } else {
-                throw RuntimeException("FAIL!")
+                throw RuntimeException("FAILed to load file! $filePath")
             }
         } catch (e: MalformedURLException) {
             throw RuntimeException("FAIL!", e)
+        }
+    }
+
+    fun delete(filePath: String) {
+        try {
+            File(Paths.get(filePath).toUri()).delete()
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to delete file!", e)
         }
     }
 

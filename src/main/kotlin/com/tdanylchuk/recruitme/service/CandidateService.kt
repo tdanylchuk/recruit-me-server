@@ -23,6 +23,7 @@ class CandidateService(private val candidateRepository: CandidateRepository,
                     "Found : ${attachments.map { it.id }}")
         }
 
+        attachments.forEach({ it.candidate = candidate })
         candidate.attachments.addAll(attachments)
         candidateRepository.save(candidate)
         log.info("Attachments{} has been assigned to candidate[{}].", attachmentIds, candidateId)

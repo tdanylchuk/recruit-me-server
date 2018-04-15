@@ -19,5 +19,5 @@ data class CandidateEntity(
 
         val position: String,
 
-        @OneToMany(fetch = EAGER)
+        @OneToMany(fetch = EAGER, mappedBy = "candidate")
         var attachments: MutableList<AttachmentEntity> = ArrayList())
