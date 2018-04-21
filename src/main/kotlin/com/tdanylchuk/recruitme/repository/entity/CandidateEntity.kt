@@ -1,4 +1,4 @@
-package com.tdanylchuk.recruitme.repository.model
+package com.tdanylchuk.recruitme.repository.entity
 
 import javax.persistence.Entity
 import javax.persistence.FetchType.EAGER

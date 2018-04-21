@@ -1,4 +1,4 @@
-package com.tdanylchuk.recruitme.repository.model
+package com.tdanylchuk.recruitme.repository.entity
 
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*

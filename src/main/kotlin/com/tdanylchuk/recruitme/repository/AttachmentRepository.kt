@@ -1,7 +1,7 @@
 package com.tdanylchuk.recruitme.repository
 
-import com.tdanylchuk.recruitme.repository.model.AttachmentEntity
-import com.tdanylchuk.recruitme.repository.model.AttachmentProjection
+import com.tdanylchuk.recruitme.repository.entity.AttachmentEntity
+import com.tdanylchuk.recruitme.repository.projection.AttachmentProjection
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
 

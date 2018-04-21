@@ -12,7 +12,7 @@ import javax.transaction.Transactional
 class CandidateService(private val candidateRepository: CandidateRepository,
                        private val attachmentRepository: AttachmentRepository) {
 
-    private var log = LoggerFactory.getLogger(this.javaClass.name)
+    private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     fun addAttachments(candidateId: Long, attachmentIds: List<Long>) {
         val candidate = candidateRepository.getOne(candidateId)

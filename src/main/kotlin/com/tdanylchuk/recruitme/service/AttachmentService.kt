@@ -3,7 +3,7 @@ package com.tdanylchuk.recruitme.service
 
 import com.tdanylchuk.recruitme.model.FileDetails
 import com.tdanylchuk.recruitme.repository.AttachmentRepository
-import com.tdanylchuk.recruitme.repository.model.AttachmentEntity
+import com.tdanylchuk.recruitme.repository.entity.AttachmentEntity
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile
 class AttachmentService(private val attachmentRepository: AttachmentRepository,
                         private val storageService: StorageService) {
 
-    private var log = LoggerFactory.getLogger(this.javaClass.name)
+    private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     fun upload(attachmentFile: MultipartFile): Long {
         val path = storageService.store(attachmentFile)
