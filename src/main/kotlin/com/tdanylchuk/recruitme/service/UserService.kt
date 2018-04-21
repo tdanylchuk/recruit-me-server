@@ -7,8 +7,6 @@ import com.tdanylchuk.recruitme.repository.entity.UserEntity
 import com.tdanylchuk.recruitme.service.RoleConstants.USER_ROLE
 import org.slf4j.LoggerFactory
 import org.springframework.dao.EmptyResultDataAccessException
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -24,18 +22,18 @@ class UserService(private val userRepository: UserRepository) : UserDetailsServi
         return userRepository.findByEmail(email)
     }
 
-    fun register(userRequest: UserRequest): UserResponse {
+    fun register(userRequest: UserRequest): Long? {
         val user = convertRequestToEntity(userRequest)
         val savedUser = userRepository.save(user)
         log.info("User[{}] with id[{}] has been registered.", savedUser.email, savedUser.id)
-        return convertEntityToResponse(savedUser)
+        return savedUser.id
     }
 
     override fun loadUserByUsername(username: String?): UserDetails {
         log.info("Checking user - [$username]...")
         try {
             val loadUser = loadUser(username)
-            return User(loadUser.email, loadUser.password, listOf(SimpleGrantedAuthority(loadUser.role)))
+            return convertEntityToResponse(loadUser)
         } catch (e: EmptyResultDataAccessException) {
             throw UsernameNotFoundException("Incorrect combination of email and password.")
         }
@@ -55,7 +53,9 @@ class UserService(private val userRepository: UserRepository) : UserDetailsServi
                 id = userEntity.id,
                 email = userEntity.email,
                 firstName = userEntity.firstName,
-                lastName = userEntity.lastName)
+                lastName = userEntity.lastName,
+                role = userEntity.role,
+                pass = userEntity.password)
     }
 
 }

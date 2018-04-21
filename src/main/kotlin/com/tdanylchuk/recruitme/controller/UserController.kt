@@ -15,9 +15,9 @@ class UserController(private val userService: UserService) {
     private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     @PostMapping("/register")
-    fun singIn(@RequestBody userRequest: UserRequest) {
+    fun singIn(@RequestBody userRequest: UserRequest): Long? {
         log.info("Registering user [{}]...", userRequest)
-        userService.register(userRequest)
+        return userService.register(userRequest)
     }
 
     @GetMapping("/user")

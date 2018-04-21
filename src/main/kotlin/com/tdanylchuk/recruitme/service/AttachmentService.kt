@@ -10,12 +10,12 @@ import org.springframework.web.multipart.MultipartFile
 
 @Service
 class AttachmentService(private val attachmentRepository: AttachmentRepository,
-                        private val storageService: StorageService) {
+                        private val fileStorageService: FileStorageService) {
 
     private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     fun upload(attachmentFile: MultipartFile): Long {
-        val path = storageService.store(attachmentFile)
+        val path = fileStorageService.store(attachmentFile)
         val attachment = AttachmentEntity(
                 path = path.toString(),
                 name = attachmentFile.originalFilename ?: "")
@@ -27,13 +27,13 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
 
     fun getDetails(attachmentId: Long): FileDetails {
         val attachment = attachmentRepository.getOne(attachmentId)
-        val file = storageService.load(attachment.path)
+        val file = fileStorageService.load(attachment.path)
         return FileDetails(file, attachment.name, file.length())
     }
 
     fun delete(attachmentId: Long) {
         val attachment = attachmentRepository.getOne(attachmentId)
-        storageService.delete(attachment.path)
+        fileStorageService.delete(attachment.path)
         attachmentRepository.delete(attachment)
         log.info("Attachment[{}] has been deleted. Path[{}]", attachmentId, attachment.path)
     }

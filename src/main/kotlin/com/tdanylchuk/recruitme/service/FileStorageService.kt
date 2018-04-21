@@ -14,7 +14,7 @@ import java.util.*
 import javax.annotation.PostConstruct
 
 @Service
-class StorageService {
+class FileStorageService {
 
     private val log = LoggerFactory.getLogger(this.javaClass.name)
     private val rootLocation = Paths.get("target/upload-dir")

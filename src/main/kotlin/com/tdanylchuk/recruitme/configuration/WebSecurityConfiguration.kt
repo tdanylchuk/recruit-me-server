@@ -1,7 +1,6 @@
 package com.tdanylchuk.recruitme.configuration
 
 import com.tdanylchuk.recruitme.service.RoleConstants.ADMIN_ROLE
-import com.tdanylchuk.recruitme.service.UserService
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
@@ -17,7 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
-class WebSecurityConfiguration(private val userService: UserService) : WebSecurityConfigurerAdapter() {
+class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http!!
