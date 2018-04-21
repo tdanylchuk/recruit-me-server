@@ -35,7 +35,8 @@ class UserService(private val userRepository: UserRepository) : UserDetailsServi
             val loadUser = loadUser(username)
             return convertEntityToResponse(loadUser)
         } catch (e: EmptyResultDataAccessException) {
-            throw UsernameNotFoundException("Incorrect combination of email and password.")
+            log.warn("User[{}] not found.", username)
+            throw UsernameNotFoundException("User not found.")
         }
     }
 

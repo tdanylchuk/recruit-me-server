@@ -3,7 +3,7 @@ package com.tdanylchuk.recruitme.repository.entity
 import javax.persistence.*
 
 @Entity
-@Table(uniqueConstraints = [UniqueConstraint(columnNames = ["email", "password", "id"])])
+@Table(uniqueConstraints = [UniqueConstraint(columnNames = ["email"])])
 data class UserEntity(
         @Id
         @GeneratedValue

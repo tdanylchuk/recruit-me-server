@@ -4,7 +4,6 @@ import com.tdanylchuk.recruitme.service.CandidateService
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 
-@CrossOrigin
 @RestController
 @RequestMapping("candidates")
 class CandidateController(private val candidateService: CandidateService) {
