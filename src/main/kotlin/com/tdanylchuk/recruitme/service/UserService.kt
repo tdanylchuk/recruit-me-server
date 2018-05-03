@@ -1,5 +1,6 @@
 package com.tdanylchuk.recruitme.service
 
+import com.tdanylchuk.recruitme.exception.ServerException
 import com.tdanylchuk.recruitme.model.UserRequest
 import com.tdanylchuk.recruitme.model.UserResponse
 import com.tdanylchuk.recruitme.repository.UserRepository
@@ -50,8 +51,9 @@ class UserService(private val userRepository: UserRepository) : UserDetailsServi
     }
 
     private fun convertEntityToResponse(userEntity: UserEntity): UserResponse {
+        val userId = userEntity.id ?: throw ServerException("Candidate should have id")
         return UserResponse(
-                id = userEntity.id,
+                id = userId,
                 email = userEntity.email,
                 firstName = userEntity.firstName,
                 lastName = userEntity.lastName,

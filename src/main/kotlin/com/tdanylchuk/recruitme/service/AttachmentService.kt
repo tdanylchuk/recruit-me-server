@@ -3,6 +3,7 @@ package com.tdanylchuk.recruitme.service
 
 import com.tdanylchuk.recruitme.model.FileDetails
 import com.tdanylchuk.recruitme.repository.AttachmentRepository
+import com.tdanylchuk.recruitme.repository.entity.ActivityType
 import com.tdanylchuk.recruitme.repository.entity.AttachmentEntity
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -10,7 +11,8 @@ import org.springframework.web.multipart.MultipartFile
 
 @Service
 class AttachmentService(private val attachmentRepository: AttachmentRepository,
-                        private val fileStorageService: FileStorageService) {
+                        private val fileStorageService: FileStorageService,
+                        private val activityService: ActivityService) {
 
     private val log = LoggerFactory.getLogger(this.javaClass.name)
 
@@ -36,6 +38,7 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
         fileStorageService.delete(attachment.path)
         attachmentRepository.delete(attachment)
         log.info("Attachment[{}] has been deleted. Path[{}]", attachmentId, attachment.path)
+        activityService.add(attachment.candidate!!.id, ActivityType.CANDIDATE_ATTACHMENT_DELETED)
     }
 
 
