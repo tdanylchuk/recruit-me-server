@@ -9,4 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 interface AttachmentRepository : JpaRepository<AttachmentEntity, Long> {
 
     fun findByIdIn(ids: List<Long>): List<AttachmentEntity>
+
+    fun findByCandidateId(candidateId: Long): List<AttachmentEntity>
 }
