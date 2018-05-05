@@ -2,8 +2,7 @@ package com.tdanylchuk.recruitme.repository.projection
 
 import com.tdanylchuk.recruitme.repository.entity.UserEntity
 import org.springframework.data.rest.core.config.Projection
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import java.util.*
 
 @Projection(name = "user", types = [UserEntity::class])
 interface UserProjection {
@@ -12,4 +11,5 @@ interface UserProjection {
     val firstName: String?
     val lastName: String?
     val role: String
+    val registrationDate: Date
 }

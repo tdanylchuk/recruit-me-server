@@ -58,7 +58,8 @@ class UserService(private val userRepository: UserRepository) : UserDetailsServi
                 firstName = userEntity.firstName,
                 lastName = userEntity.lastName,
                 role = userEntity.role,
-                pass = userEntity.password)
+                pass = userEntity.password,
+                registrationDate = userEntity.registrationDate!!)
     }
 
 }

@@ -11,5 +11,5 @@ interface ActivityRepository : JpaRepository<ActivityEntity, Long> {
 
     fun findByTargetId(targetId: Long): List<ActivityEntity>
 
-    fun findByTargetIdAndType(targetId: Long, activityType: ActivityType): List<ActivityEntity>
+    fun findByAuthorId(authorId: Long): List<ActivityEntity>
 }
