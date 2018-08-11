@@ -1,5 +1,6 @@
 package com.tdanylchuk.recruitme.controller
 
+import com.tdanylchuk.recruitme.repository.entity.TargetType
 import com.tdanylchuk.recruitme.service.AttachmentService
 import org.slf4j.LoggerFactory
 import org.springframework.core.io.FileSystemResource
@@ -21,10 +22,12 @@ class AttachmentController(private val attachmentService: AttachmentService) {
     private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     @PostMapping("/upload")
-    fun upload(@RequestParam("files") files: Array<MultipartFile>): List<Long> {
+    fun upload(@RequestParam("files") files: Array<MultipartFile>,
+               @RequestParam("targetId") targetId: Long,
+               @RequestParam("targetType") targetType: TargetType): List<Long> {
         return files.map {
             log.info("Uploading attachment[{}]...", it.originalFilename)
-            attachmentService.upload(it)
+            attachmentService.upload(it, targetId, targetType)
         }
     }
 

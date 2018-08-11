@@ -2,6 +2,7 @@ package com.tdanylchuk.recruitme.repository
 
 import com.tdanylchuk.recruitme.repository.entity.ActivityType
 import com.tdanylchuk.recruitme.repository.entity.CandidateEntity
+import com.tdanylchuk.recruitme.repository.entity.TargetType
 import com.tdanylchuk.recruitme.service.ActivityService
 import org.slf4j.LoggerFactory
 import org.springframework.data.rest.core.annotation.HandleAfterCreate
@@ -18,19 +19,19 @@ class RestRepositoryEventHandler(private val activityService: ActivityService) {
 
     @HandleAfterSave
     fun handleAfterCandidateSave(candidate: CandidateEntity) {
-        activityService.add(candidate.id, ActivityType.CANDIDATE_EDITED)
+        activityService.add(candidate.id, ActivityType.CANDIDATE_EDITED, TargetType.CANDIDATE)
         log.info("Candidate has been edited: $candidate")
     }
 
     @HandleAfterCreate
     fun handleAfterCandidateCreate(candidate: CandidateEntity) {
-        activityService.add(candidate.id, ActivityType.CANDIDATE_ADDED)
+        activityService.add(candidate.id, ActivityType.CANDIDATE_ADDED, TargetType.CANDIDATE)
         log.info("Candidate has been created: $candidate")
     }
 
     @HandleAfterDelete
     fun handleAfterCandidateDelete(candidate: CandidateEntity) {
-        activityService.add(candidate.id, ActivityType.CANDIDATE_DELETED)
+        activityService.add(candidate.id, ActivityType.CANDIDATE_DELETED, TargetType.CANDIDATE)
         log.info("Candidate has been deleted: $candidate")
     }
 

@@ -14,6 +14,8 @@ data class ActivityEntity(
 
         val targetId: Long,
 
+        val targetType: TargetType,
+
         @OneToOne
         val author: UserEntity,
 

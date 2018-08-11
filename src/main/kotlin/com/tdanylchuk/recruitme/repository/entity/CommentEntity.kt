@@ -16,6 +16,8 @@ data class CommentEntity(
 
         val targetId: Long,
 
+        val targetType: TargetType,
+
         @OneToOne
         val author: UserEntity,
 

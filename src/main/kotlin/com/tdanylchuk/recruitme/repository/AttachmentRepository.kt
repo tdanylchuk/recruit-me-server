@@ -1,6 +1,7 @@
 package com.tdanylchuk.recruitme.repository
 
 import com.tdanylchuk.recruitme.repository.entity.AttachmentEntity
+import com.tdanylchuk.recruitme.repository.entity.TargetType
 import com.tdanylchuk.recruitme.repository.projection.AttachmentProjection
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
@@ -10,5 +11,5 @@ interface AttachmentRepository : JpaRepository<AttachmentEntity, Long> {
 
     fun findByIdIn(ids: List<Long>): List<AttachmentEntity>
 
-    fun findByCandidateId(candidateId: Long): List<AttachmentEntity>
+    fun findByTargetIdAndTargetType(targetId: Long, targetType: TargetType): List<AttachmentEntity>
 }

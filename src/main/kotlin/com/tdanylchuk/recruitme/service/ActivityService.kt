@@ -5,6 +5,7 @@ import com.tdanylchuk.recruitme.repository.ActivityRepository
 import com.tdanylchuk.recruitme.repository.UserRepository
 import com.tdanylchuk.recruitme.repository.entity.ActivityEntity
 import com.tdanylchuk.recruitme.repository.entity.ActivityType
+import com.tdanylchuk.recruitme.repository.entity.TargetType
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
@@ -16,6 +17,7 @@ class ActivityService(private val activityRepository: ActivityRepository,
 
     fun add(targetId: Long,
             activityType: ActivityType,
+            targetType: TargetType,
             content: String?) {
 
         val author = userRepository.getOne(getAuthorId())
@@ -23,14 +25,16 @@ class ActivityService(private val activityRepository: ActivityRepository,
                 content = content,
                 targetId = targetId,
                 author = author,
+                targetType = targetType,
                 type = activityType)
         entity = activityRepository.save(entity)
         log.info("Activity[$entity] has been saved.")
     }
 
     fun add(targetId: Long,
-            activityType: ActivityType) {
-        add(targetId, activityType, null)
+            activityType: ActivityType,
+            targetType: TargetType) {
+        add(targetId, activityType, targetType, null)
     }
 
     fun getAuthorId(): Long {

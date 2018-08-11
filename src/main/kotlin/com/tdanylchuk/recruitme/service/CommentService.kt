@@ -15,14 +15,19 @@ class CommentService(private val commentRepository: CommentRepository,
     private val log = LoggerFactory.getLogger(this.javaClass.name)
 
     fun post(commentRequest: CommentRequest) {
+        val commentEntity = convertToEntity(commentRequest)
+        val savedEntity = commentRepository.save(commentEntity)
+        log.info("Comment[{}] has been saved", savedEntity.id)
+        activityService.add(savedEntity.targetId, ActivityType.CANDIDATE_COMMENT_ADDED, savedEntity.targetType)
+    }
+
+    private fun convertToEntity(commentRequest: CommentRequest): CommentEntity {
         val author = userRepository.getOne(commentRequest.authorId)
-        var commentEntity = CommentEntity(
+        return CommentEntity(
                 content = commentRequest.content,
                 targetId = commentRequest.targetId,
+                targetType = commentRequest.targetType,
                 author = author)
-        commentEntity = commentRepository.save(commentEntity)
-        log.info("Comment[{}] has been saved", commentEntity.id)
-        activityService.add(commentRequest.targetId, ActivityType.CANDIDATE_COMMENT_ADDED)
     }
 
 }
