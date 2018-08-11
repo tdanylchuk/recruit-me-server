@@ -27,7 +27,7 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
 
         val savedAttachment = attachmentRepository.save(attachment)
         log.info("Attachment[{}] has been saved.", savedAttachment)
-        activityService.add(targetId, ActivityType.CANDIDATE_ATTACHMENT_ADDED, targetType, attachment.name)
+        activityService.add(targetId, ActivityType.ATTACHMENT_ADDED, targetType, attachment.name)
         return savedAttachment.id
     }
 
@@ -42,7 +42,7 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
         fileStorageService.delete(attachment.path)
         attachmentRepository.delete(attachment)
         log.info("Attachment[{}] has been deleted. Path[{}]", attachmentId, attachment.path)
-        activityService.add(attachment.targetId, ActivityType.CANDIDATE_ATTACHMENT_DELETED, attachment.targetType)
+        activityService.add(attachment.targetId, ActivityType.ATTACHMENT_DELETED, attachment.targetType)
     }
 
 }

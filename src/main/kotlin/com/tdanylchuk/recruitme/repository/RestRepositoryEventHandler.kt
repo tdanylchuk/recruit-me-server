@@ -2,6 +2,7 @@ package com.tdanylchuk.recruitme.repository
 
 import com.tdanylchuk.recruitme.repository.entity.ActivityType
 import com.tdanylchuk.recruitme.repository.entity.CandidateEntity
+import com.tdanylchuk.recruitme.repository.entity.EmployeeEntity
 import com.tdanylchuk.recruitme.repository.entity.TargetType
 import com.tdanylchuk.recruitme.service.ActivityService
 import org.slf4j.LoggerFactory
@@ -19,20 +20,38 @@ class RestRepositoryEventHandler(private val activityService: ActivityService) {
 
     @HandleAfterSave
     fun handleAfterCandidateSave(candidate: CandidateEntity) {
-        activityService.add(candidate.id, ActivityType.CANDIDATE_EDITED, TargetType.CANDIDATE)
+        activityService.add(candidate.id, ActivityType.EDITED, TargetType.CANDIDATE)
         log.info("Candidate has been edited: $candidate")
     }
 
     @HandleAfterCreate
     fun handleAfterCandidateCreate(candidate: CandidateEntity) {
-        activityService.add(candidate.id, ActivityType.CANDIDATE_ADDED, TargetType.CANDIDATE)
+        activityService.add(candidate.id, ActivityType.ADDED, TargetType.CANDIDATE)
         log.info("Candidate has been created: $candidate")
     }
 
     @HandleAfterDelete
     fun handleAfterCandidateDelete(candidate: CandidateEntity) {
-        activityService.add(candidate.id, ActivityType.CANDIDATE_DELETED, TargetType.CANDIDATE)
+        activityService.add(candidate.id, ActivityType.DELETED, TargetType.CANDIDATE)
         log.info("Candidate has been deleted: $candidate")
+    }
+
+    @HandleAfterSave
+    fun handleAfterEmployeeSave(employee: EmployeeEntity) {
+        activityService.add(employee.id, ActivityType.EDITED, TargetType.EMPLOYEE)
+        log.info("Employee has been edited: $employee")
+    }
+
+    @HandleAfterCreate
+    fun handleAfterEmployeeCreate(employee: EmployeeEntity) {
+        activityService.add(employee.id, ActivityType.ADDED, TargetType.EMPLOYEE)
+        log.info("Employee has been created: $employee")
+    }
+
+    @HandleAfterDelete
+    fun handleAfterEmployeeDelete(employee: EmployeeEntity) {
+        activityService.add(employee.id, ActivityType.DELETED, TargetType.EMPLOYEE)
+        log.info("Employee has been deleted: $employee")
     }
 
 }

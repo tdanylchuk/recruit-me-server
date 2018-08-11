@@ -18,7 +18,7 @@ class CommentService(private val commentRepository: CommentRepository,
         val commentEntity = convertToEntity(commentRequest)
         val savedEntity = commentRepository.save(commentEntity)
         log.info("Comment[{}] has been saved", savedEntity.id)
-        activityService.add(savedEntity.targetId, ActivityType.CANDIDATE_COMMENT_ADDED, savedEntity.targetType)
+        activityService.add(savedEntity.targetId, ActivityType.COMMENT_ADDED, savedEntity.targetType)
     }
 
     private fun convertToEntity(commentRequest: CommentRequest): CommentEntity {
