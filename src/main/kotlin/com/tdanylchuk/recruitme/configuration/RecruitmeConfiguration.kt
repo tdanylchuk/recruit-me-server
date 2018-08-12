@@ -28,8 +28,12 @@ class RecruitmeConfiguration {
     }
 
     private fun loadTestEmployees(employeeRepository: EmployeeRepository) {
-        val employeeEntity = EmployeeEntity(0, "FirstEmployeeName", "FirstEmployeeSurname",
-                "someemail@gmail.com", "BackEnd developer")
+        val employeeEntity = EmployeeEntity(
+                id = 0,
+                firstName = "FirstEmployeeName",
+                lastName = "FirstEmployeeSurname",
+                email = "someemail@gmail.com",
+                position = "BackEnd developer")
         employeeRepository.save(employeeEntity)
         println("Saved employee - $employeeEntity")
     }
