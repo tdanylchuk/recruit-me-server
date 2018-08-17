@@ -4,6 +4,7 @@ import com.tdanylchuk.recruitme.repository.entity.AttachmentEntity
 import com.tdanylchuk.recruitme.repository.entity.CandidateEntity
 import com.tdanylchuk.recruitme.repository.entity.EmployeeEntity
 import com.tdanylchuk.recruitme.repository.entity.UserEntity
+import com.tdanylchuk.recruitme.repository.entity.compensation.CompensationEntity
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter
@@ -16,7 +17,8 @@ class RestMvcConfiguration : RepositoryRestConfigurerAdapter() {
                 CandidateEntity::class.java,
                 AttachmentEntity::class.java,
                 UserEntity::class.java,
-                EmployeeEntity::class.java
+                EmployeeEntity::class.java,
+                CompensationEntity::class.java
         )
     }
 }
