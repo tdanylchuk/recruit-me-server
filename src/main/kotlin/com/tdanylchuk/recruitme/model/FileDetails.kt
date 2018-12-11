@@ -1,7 +1,6 @@
 package com.tdanylchuk.recruitme.model
 
-import java.io.File
+import java.io.InputStream
 
-data class FileDetails(val file: File,
-                       val originalFileName: String,
+data class FileDetails(val inputStream: InputStream,
                        val fileSize: Long)

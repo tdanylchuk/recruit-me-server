@@ -1,7 +1,6 @@
 package com.tdanylchuk.recruitme.service
 
-
-import com.tdanylchuk.recruitme.model.FileDetails
+import com.tdanylchuk.recruitme.model.AttachmentFileDetails
 import com.tdanylchuk.recruitme.repository.AttachmentRepository
 import com.tdanylchuk.recruitme.repository.entity.ActivityType
 import com.tdanylchuk.recruitme.repository.entity.AttachmentEntity
@@ -20,8 +19,8 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
     fun upload(attachmentFile: MultipartFile, targetId: Long, targetType: TargetType): Long {
         val path = fileStorageService.store(attachmentFile)
         val attachment = AttachmentEntity(
-                path = path.toString(),
-                name = attachmentFile.originalFilename ?: "",
+                path = path,
+                name = attachmentFile.originalFilename ?: path,
                 targetId = targetId,
                 targetType = targetType)
 
@@ -31,10 +30,10 @@ class AttachmentService(private val attachmentRepository: AttachmentRepository,
         return savedAttachment.id
     }
 
-    fun getDetails(attachmentId: Long): FileDetails {
+    fun getDetails(attachmentId: Long): AttachmentFileDetails {
         val attachment = attachmentRepository.getOne(attachmentId)
-        val file = fileStorageService.load(attachment.path)
-        return FileDetails(file, attachment.name, file.length())
+        val fileDetails = fileStorageService.load(attachment.path)
+        return AttachmentFileDetails(fileDetails, attachment.name)
     }
 
     fun delete(attachmentId: Long) {

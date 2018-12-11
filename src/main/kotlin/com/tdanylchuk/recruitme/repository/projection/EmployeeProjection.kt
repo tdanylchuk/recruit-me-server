@@ -13,6 +13,8 @@ interface EmployeeProjection {
 
     val lastName: String
 
+    val originalName : String?
+
     val email: String
 
     val position: String

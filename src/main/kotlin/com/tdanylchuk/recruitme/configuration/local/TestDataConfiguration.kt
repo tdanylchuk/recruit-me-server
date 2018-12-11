@@ -1,4 +1,4 @@
-package com.tdanylchuk.recruitme.configuration
+package com.tdanylchuk.recruitme.configuration.local;
 
 import com.tdanylchuk.recruitme.repository.*
 import com.tdanylchuk.recruitme.repository.entity.CandidateEntity
@@ -12,9 +12,11 @@ import com.tdanylchuk.recruitme.service.RoleConstants
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
 @Configuration
-class RecruitmeConfiguration {
+@Profile("local")
+class TestDataConfiguration {
 
     @Bean
     fun init(candidateRepository: CandidateRepository,
@@ -43,7 +45,7 @@ class RecruitmeConfiguration {
         println("Saved employee - $employeeEntity")
     }
 
-    fun loadTestUsers(userRepository: UserRepository) {
+    private fun loadTestUsers(userRepository: UserRepository) {
         var user = UserEntity(firstName = "Taras",
                 lastName = "Danylchuk",
                 role = RoleConstants.USER_ROLE,
@@ -53,7 +55,7 @@ class RecruitmeConfiguration {
         println("Saved user $user")
     }
 
-    fun loadTestCandidates(candidateRepository: CandidateRepository) {
+    private fun loadTestCandidates(candidateRepository: CandidateRepository) {
         listOf("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
                 "Gremlin", "Triumph", "Ford", "Yugo").forEach { name ->
             val candidate = CandidateEntity(
@@ -66,8 +68,8 @@ class RecruitmeConfiguration {
         candidateRepository.findAll().forEach { candidate -> println(candidate) }
     }
 
-    fun loadCompensations(compensationCategoryRepository: CompensationCategoryRepository,
-                          compensationRepository: CompensationRepository) {
+    private fun loadCompensations(compensationCategoryRepository: CompensationCategoryRepository,
+                                  compensationRepository: CompensationRepository) {
         var sportCategory = CompensationCategoryEntity(
                 category = "Sport")
         sportCategory = compensationCategoryRepository.save(sportCategory)
@@ -91,11 +93,18 @@ class RecruitmeConfiguration {
         conferenceCategory.gradationLimits.add(conferenceCompensationLimit)
         compensationCategoryRepository.save(conferenceCategory)
 
-        val compensation = CompensationEntity(
+        val compensation1 = CompensationEntity(
                 category = "Sport",
                 description = "Football",
                 amount = 300.0,
                 employeeId = 11)
-        compensationRepository.save(compensation)
+        compensationRepository.save(compensation1)
+
+        val compensation2 = CompensationEntity(
+                category = "Sport",
+                description = "SportLife",
+                amount = 150.0,
+                employeeId = 11)
+        compensationRepository.save(compensation2)
     }
 }

@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -25,6 +25,7 @@
 
         <kotlin.version>1.2.60</kotlin.version>
         <springfox-swagger2.version>2.8.0</springfox-swagger2.version>
+        <aws-java-sdk.version>1.11.466</aws-java-sdk.version>
     </properties>
 
     <dependencies>
@@ -52,17 +53,17 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -96,10 +97,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <groupId>com.amazonaws</groupId>
+            <version>${aws-java-sdk.version}</version>
         </dependency>
 
     </dependencies>
@@ -134,8 +136,17 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>0.10.0</version>
+                <configuration>
+                    <to>
+                        <image>060095482111.dkr.ecr.eu-west-1.amazonaws.com/recruit-me:latest</image>
+                    </to>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 
 </project>

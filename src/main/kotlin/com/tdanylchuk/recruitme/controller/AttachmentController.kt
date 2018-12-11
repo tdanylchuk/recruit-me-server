@@ -3,7 +3,7 @@ package com.tdanylchuk.recruitme.controller
 import com.tdanylchuk.recruitme.repository.entity.TargetType
 import com.tdanylchuk.recruitme.service.AttachmentService
 import org.slf4j.LoggerFactory
-import org.springframework.core.io.FileSystemResource
+import org.springframework.core.io.InputStreamResource
 import org.springframework.core.io.Resource
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
@@ -37,8 +37,8 @@ class AttachmentController(private val attachmentService: AttachmentService) {
         log.info("Downloading attachment[{}]...", attachmentId)
         val details = attachmentService.getDetails(attachmentId)
         response.setHeader("Content-Disposition", "attachment; filename=" + details.originalFileName)
-        response.setHeader("Content-Length", details.fileSize.toString())
-        return FileSystemResource(details.file)
+        response.setHeader("Content-Length", details.fileDetails.fileSize.toString())
+        return InputStreamResource(details.fileDetails.inputStream)
     }
 
     @DeleteMapping("/{attachmentId}")

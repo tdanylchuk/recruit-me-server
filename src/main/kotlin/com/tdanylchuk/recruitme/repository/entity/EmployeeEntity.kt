@@ -14,6 +14,8 @@ data class EmployeeEntity(
 
         val lastName: String,
 
+        val originalName : String? = null,
+
         val email: String?,
 
         val position: String? = null,
